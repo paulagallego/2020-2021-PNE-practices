@@ -2,7 +2,7 @@ def correct_sequence(dna):
     for i in dna:
         if i != 'A' and i != 'C' and i != 'G' and i != 'T':
             return False
-    return True #must be outside the if loop or it wont work as desired
+    return True
 def dnacount(dna):
     a, c, g, t = 0,0,0,0
 
@@ -16,15 +16,8 @@ def dnacount(dna):
             else:
                 t += 1
     return a,c,g,t
-def read_from_file(filename):
-    with open(filename, 'r') as f:
-        dna = f.read()
-        dna = dna.replace('\n', '')
-        f.close() #not necesary as we are just running the code once, if more than once it is needed
-        return dna
 
-dna = read_from_file('dna.txt')
-
+dna = input('Introduce a sequence: ')
 correct_dna = correct_sequence(dna)
 if correct_sequence(dna):
     print('Total length: ', len(dna))
@@ -36,5 +29,3 @@ if correct_sequence(dna):
       f"T: {t} \n")
 else:
     print('Not a valid dna sequence')
-
-
