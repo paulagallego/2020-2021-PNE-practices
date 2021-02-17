@@ -8,5 +8,6 @@ def fibon(n):
         y = sum
         new_list.append(sum)
     return new_list
+print('the first 5 fibonacci numbers are: ', fibon(5))
 print('the first 11 fibonacci numbers are: ', fibon(11))
 print('the first 15 fibonacci numbers are: ', fibon(15))
