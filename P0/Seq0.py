@@ -20,4 +20,4 @@ def seq_count(seq):
     gene_dict = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
     for d in seq:
         gene_dict[d] +=1
-    return {'A': a, 'C': c}
+    return gene_dict
