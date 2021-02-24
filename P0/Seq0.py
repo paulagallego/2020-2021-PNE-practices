@@ -13,3 +13,11 @@ def seq_read_fasta(filename):
 
 def seq_len(seq):
     return len(seq) #bc every time we call seq_len we will have first called seq_read_fasta
+
+def seq_count_base(seq, base):
+    return seq.count(base)
+def seq_count(seq):
+    gene_dict = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+    for d in seq:
+        gene_dict[d] +=1
+    return {'A': a, 'C': c}
