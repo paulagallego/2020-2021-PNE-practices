@@ -4,9 +4,8 @@ FILENAME = "ADA.txt"
 file_contents = Path(FILENAME).read_text()
 x = file_contents.split('\n', 1)
 del x[0]
-x.
+y = str(x)
+y.replace('\n', "")
 z = int(len(x))
 
-
-
-print('The correct result is: ', z)
+print('The correct result is: ', y)
