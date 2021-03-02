@@ -21,3 +21,6 @@ def seq_count(seq):
     for d in seq:
         gene_dict[d] +=1
     return gene_dict
+def seq_reverse(seq):
+    first_20_bases = seq[0:20]
+    return(first_20_bases[::-1])
