@@ -31,6 +31,12 @@ def seq_complement(seq):
         comp_seq.append(comp_dict[i])
     comp_seq_str = "".join(comp_seq)
     return comp_seq_str
+def most_freq(seq):
+    gene_dict = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+    for d in seq:
+        gene_dict[d] += 1
+    freq_base = max(gene_dict, key=gene_dict.get)
+    return freq_base
 
 
 
