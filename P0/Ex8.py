@@ -1,0 +1,1 @@
+#Write a python program for creating a new fragment composed of the first 20 bases of the U5 gene. This fragment should be printed on the console. Then calculate the complement of this fragment by calling the seq_complement() function. Finally print it on the console

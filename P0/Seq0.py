@@ -24,3 +24,13 @@ def seq_count(seq):
 def seq_reverse(seq):
     first_20_bases = seq[0:20]
     return(first_20_bases[::-1])
+def seq_complement(seq):
+    comp_dict = {'A': 'T', 'G': 'C', 'C': 'G', 'T': 'A'}
+    comp_seq = []
+    for i in seq:
+        comp_seq.append(comp_dict[i])
+    comp_seq_str = "".join(comp_seq)
+    return comp_seq_str
+
+
+
