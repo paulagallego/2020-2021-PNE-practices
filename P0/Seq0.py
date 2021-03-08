@@ -37,6 +37,11 @@ def most_freq(seq):
         gene_dict[d] += 1
     freq_base = max(gene_dict, key=gene_dict.get)
     return freq_base
+#def is_valid_sequence(self):#if we need the class attributes to work with this function, we need to add 'self' as an argument of the function
+        #for i in self.strbases:
+            #if i != 'A' and i !='C' and i != 'G' and i != 'T':
+                #return False
+        #return True
 
 
 
