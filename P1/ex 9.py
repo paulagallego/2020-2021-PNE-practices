@@ -6,7 +6,7 @@ def print_result(i, sequence): #i=number sequence are what changes along the def
     print('Rev:', sequence.reverse())
     print('Comp:', sequence.complement())
 
-PROJECT_PATH = "../P0/project"
+PROJECT_PATH = "../P0/project/"
 print('-----|Practice 1, Exercise 9|-----')
 
 s1 = Seq()
