@@ -97,7 +97,14 @@ class Seq:
         return sequence[sequence.find("\n") + 1:].replace("\n","")
 
     def read_fasta(self, filename):
-        self.strbases = Seq.take_out_first_line(Path(filename)).read_text()
+        self.strbases = Seq.take_out_first_line(Path(filename).read_text())
+
+    def most_frequent_bases(seq):
+        gene_dict = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
+        for d in seq:
+            gene_dict[d] += 1
+        freq_base = max(gene_dict, key=gene_dict.get)
+        return freq_base
 
 def test_sequences():
     s1 = Seq()
