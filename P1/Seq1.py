@@ -1,12 +1,15 @@
 import termcolor
-
+from pathlib import Path
 class Seq:
     """A class for representing sequences"""
-    def __init__(self, strbases = 'NULL'):
+    #constant: varable with no changing value, always with Caps, for avoiding literals, more proper way
+    NULL_SEQUENCE = 'NULL'
+    INVALID_SEQUENCE = 'ERROR'
+    def __init__(self, strbases=NULL_SEQUENCE):
         #Initialize the sequence with the value passed as argument when creating the object
         #If Attribute Error: 'Seq' obj has no attribute 'strbases', add self.strbases = strbases at the beginning of the def __init__
         self.strbases = strbases
-        if strbases == 'NULL':
+        if strbases == Seq.NULL_SEQUENCE:
             print('Null seq created')
             self.strbases = strbases
         else:
@@ -15,7 +18,7 @@ class Seq:
                 print('New sequence created!')
 
             else:
-                self.strbases = 'Error'
+                self.strbases = Seq.INVALID_SEQUENCE
                 print('INCORRECT sequence detected')
     def is_valid_sequence(self):
         for i in self.strbases:
@@ -42,23 +45,78 @@ class Seq:
 
     def len(self):
         """Calculate the length of the sequence"""
-        if self.strbases == 'NULL' or self.strbases == 'Error':
+        if self.strbases == Seq.NULL_SEQUENCE or self.strbases == Seq.INVALID_SEQUENCE:
             return 0
         else:
             return len(self.strbases)
 
-class Gene:
-"this class is derived from the Seq Class":
-        #Call first the Seq initilizer and then the Gene init method
-        super().__init__(strbases) #
-        self.name = name
-        print('New gene created')
-    def __str__(self):
-        """Print the gene name along with the sequence"""
-        return self.name +"-" + self.strbases
-    def len(self):
-        """Calculate the length of the sequence and print the sequence as  well"""
-        if len(self.strbases) < 10:
-            return "Sequence" + self.strbases + "is not long"
+    def count_bases(self):
+        a, c, g, t = 0, 0, 0, 0
+        if not (self.strbases == Seq.NULL_SEQUENCE) and not(self.strbases == Seq.INVALID_SEQUENCE):
+            for i in self.strbases:
+                if i == 'A':
+                    a += 1
+                elif i == 'C':
+                    c += 1
+                elif i == 'G':
+                    g += 1
+                else:
+                    t += 1
+        return a, c, g, t
+    def count(self):
+        a, c, g, t = self.count_bases()
+        return {'A': a, 'C': c, 'G': g, 'T': t}
+
+    def reverse(self):
+        if self.strbases == Seq.NULL_SEQUENCE:
+            return 'NULL'
+        elif self.strbases == Seq.INVALID_SEQUENCE:
+            return 'ERROR'
         else:
-            return "Sequence" + self.strbases + "is long"
+            return self.strbases[::-1]
+
+    def complement(self):
+        if self.strbases == Seq.NULL_SEQUENCE:
+            return Seq.NULL_SEQUENCE
+        elif self.strbases == Seq.INVALID_SEQUENCE:
+            return Seq.INVALID_SEQUENCE
+        else:
+            complement = ''
+            for i in self.strbases:
+                if i == 'A':
+                    complement += 'T'
+                elif i == 'C':
+                    complement += 'G'
+                elif i == 'G':
+                    complement += 'C'
+                elif i == 'T':
+                    complement += 'A'
+                return complement
+    @staticmethod
+    def take_out_first_line(sequence):
+        return sequence[sequence.find("\n") + 1:].replace("\n","")
+
+    def read_fasta(self, filename):
+        self.strbases = Seq.take_out_first_line(Path(filename)).read_text()
+
+def test_sequences():
+    s1 = Seq()
+    s2 = Seq('ACTGA')
+    s3 = Seq('Invalid Sequence')
+    return s1, s2, s3
+
+#class Gene:
+    #"this class is derived from the Seq Class"
+        #Call first the Seq initilizer and then the Gene init method
+    #super().__init__(strbases) #
+    #self.name = name
+    #print('New gene created')
+    #def __str__(self):
+        #"""Print the gene name along with the sequence"""
+        #return self.name +"-" + self.strbases
+    #def len(self):
+        #"""Calculate the length of the sequence and print the sequence as  well"""
+        #if len(self.strbases) < 10:
+           # return "Sequence" + self.strbases + "is not long"
+       # else:
+           # return "Sequence" + self.strbases + "is long"
