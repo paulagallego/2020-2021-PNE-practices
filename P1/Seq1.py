@@ -46,3 +46,19 @@ class Seq:
             return 0
         else:
             return len(self.strbases)
+
+class Gene:
+"this class is derived from the Seq Class":
+        #Call first the Seq initilizer and then the Gene init method
+        super().__init__(strbases) #
+        self.name = name
+        print('New gene created')
+    def __str__(self):
+        """Print the gene name along with the sequence"""
+        return self.name +"-" + self.strbases
+    def len(self):
+        """Calculate the length of the sequence and print the sequence as  well"""
+        if len(self.strbases) < 10:
+            return "Sequence" + self.strbases + "is not long"
+        else:
+            return "Sequence" + self.strbases + "is long"
