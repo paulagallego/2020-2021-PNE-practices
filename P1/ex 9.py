@@ -6,9 +6,12 @@ def print_result(i, sequence): #i=number sequence are what changes along the def
     print('Rev:', sequence.reverse())
     print('Comp:', sequence.complement())
 
-PROJECT_PATH = "../P0/project/"
+PROJECT_PATH = "../P0/sequences/"
 print('-----|Practice 1, Exercise 9|-----')
 
 s1 = Seq()
 s1.read_fasta(PROJECT_PATH + 'ADA.txt')
 print_result("",s1)
+s2 = Seq()
+s2.read_fasta(PROJECT_PATH + 'U5.txt')
+print_result("",s2)
