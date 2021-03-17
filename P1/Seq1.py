@@ -101,7 +101,7 @@ class Seq:
 
     def most_frequent_bases(seq):
         gene_dict = {'A': 0, 'C': 0, 'G': 0, 'T': 0}
-        for d in seq:
+        for d in str(seq):
             gene_dict[d] += 1
         freq_base = max(gene_dict, key=gene_dict.get)
         return freq_base
