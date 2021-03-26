@@ -3,7 +3,7 @@ from pathlib import Path
 from Seq1 import Seq
 
 PRACTICE = 2
-EXERCISE = 4
+EXERCISE = 7
 
 print(f"----|Practice {PRACTICE}, Exercise {EXERCISE}|----")
 IP = "127.0.0.1"

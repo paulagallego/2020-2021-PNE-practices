@@ -8,7 +8,7 @@ class Seq:
     def __init__(self, strbases=NULL_SEQUENCE):
         #Initialize the sequence with the value passed as argument when creating the object
         #If Attribute Error: 'Seq' obj has no attribute 'strbases', add self.strbases = strbases at the beginning of the def __init__
-        self.strbases = strbases
+       self.strbases = strbases
         if strbases == Seq.NULL_SEQUENCE:
             print('Null seq created')
             self.strbases = strbases
