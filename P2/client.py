@@ -3,7 +3,7 @@ import socket
 # SERVER IP, PORT
 # Write here the correct parameter for connecting to the
 # Teacher's server
-PORT = 8081
+PORT = 52123
 IP = "127.0.0.1"
 #client and server must connect to the same port and ip
 
@@ -13,6 +13,7 @@ s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # establish the connection to the Server (IP, PORT)
 s.connect((IP, PORT))
+#PORT 80 = provided by the domain name, by default. attends all requests from our browsers
 
 # Send data. No strings can be send, only bytes
 # It necesary to encode the string into bytes
