@@ -1,4 +1,7 @@
 import socket
+
+import colorama
+import termcolor
 from termcolor import colored
 
 class Client:

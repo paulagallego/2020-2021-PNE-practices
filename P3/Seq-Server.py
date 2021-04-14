@@ -33,10 +33,13 @@ while True:
     print("Waiting for Clients to connect")
 
     try:
+
         (cs, client_ip_port) = ls.accept() #count connections always after accept
         client_address_list.append(client_ip_port)
         count_connections += 1
+
         print("CONNECTION " + str(count_connections) + ".Client IP, PORT: " + str(client_ip_port))
+
 
     # -- Server stopped manually
     except KeyboardInterrupt:

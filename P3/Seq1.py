@@ -92,6 +92,7 @@ class Seq:
                 elif i == 'T':
                     complement += 'A'
             return complement
+
     @staticmethod
     def take_out_first_line(sequence):
         return sequence[sequence.find("\n") + 1:].replace("\n","")
