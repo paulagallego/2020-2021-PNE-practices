@@ -85,9 +85,24 @@ while True:
             #cs.send(str(response).encode()) # the int is back to a str and encoded into bytes by .encode and sent back to client
         elif command == 'GET':
             server_utils.get(cs, list_sequences, argument)
+        elif command == '"INFO"':
+            Server_utils.info(argument, cs)
+
+        elif command == '"COMP"':
+            Server_utils.comp(argument, cs)
+
+        elif command == '"REV"':
+            Server_utils.rev(argument, cs)
+
+        elif command == '"GENE"':
+            Server_utils.gene(argument, cs)
 
         else:
             response = "Not available command"
-            cs.send(str(response).encode())
+            termcolor.cprint(response, "red")
+            cs.send(response.encode())
+        #else:
+            #response = "Not available command"
+            #cs.send(str(response).encode())
         # -- Close the data socket
         cs.close()

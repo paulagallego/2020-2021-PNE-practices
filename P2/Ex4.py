@@ -1,6 +1,4 @@
 from Client0 import Client
-from pathlib import Path
-from Seq1 import Seq
 
 PRACTICE = 2
 EXERCISE = 4
