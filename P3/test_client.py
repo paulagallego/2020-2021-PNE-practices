@@ -25,7 +25,7 @@ for argument in range(5):
 
 print("*Testing INFO...")
 
-s = c.talk("INFO ACTGATGCGCTATCGATCGCTGACATCGATCGAGATCGAGCATCTGATCA")
+s = c.talk("INFO ACGTAAAAGTTTAAGCGCCAAT")
 s.connect((self.ip, self.port))
 print("To Server:", argument)
 s.send(argument.encode())
@@ -38,7 +38,7 @@ s.close()
 print("From server: " + response1 + '\n' + response2 + '\n' + response3 + '\n'+ response4 + '\n' + response5 + '\n')
 
 print('*Testing COMP...')
-s = c.talk("COMP ACTGATGCGCTATCGATCGCTGACATCGATCGAGATCGAGCATCTGATCA")
+s = c.talk("COMP ACGTAAAAGTTTAAGCGCCAAT")
 s.connect((self.ip, self.port))
 print("To Server:", argument)
 s.send(argument.encode())
@@ -47,19 +47,19 @@ s.close()
 print("From server: " + response)
 
 print('*Testing REV...')
-s = c.talk("REV ACTGATGCGCTATCGATCGCTGACATCGATCGAGATCGAGCATCTGATCA")
+s = c.talk("REV ACGTAAAAGTTTAAGCGCCAAT")
 s.connect((self.ip, self.port))
 print("To Server:", argument)
 s.send(argument.encode())
 response = s.recv(2048).decode("utf-8")
 s.close()
-return "From server: " + response
+print("From server: " + response)
 
 print('*Testing GENE...')
-s = c.talk("GENE ACTGATGCGCTATCGATCGCTGACATCGATCGAGATCGAGCATCTGATCA")
+s = c.talk("GENE ACGTAAAAGTTTAAGCGCCAAT")
 s.connect((self.ip, self.port))
 print("To Server:", argument)
 s.send(argument.encode())
 response = s.recv(2048).decode("utf-8")
 s.close()
-return "From server: " + response
+print("From server: " + response)
