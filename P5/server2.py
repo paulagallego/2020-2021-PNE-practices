@@ -3,7 +3,8 @@ import socketserver
 import termcolor
 import pathlib
 import jinja2 #for creating dynamic webpages, from it we import Template
-def read_template_html_file(filename): #create template object, can't be directly sent to the browser as it only reads plain text, files or html (template is none of them), we transform it by render function
+def read_template_html_file(filename):
+    #create template object, can't be directly sent to the browser as it only reads plain text, files or html (template is none of them), we transform it by render function
     content = jinja2.Template(pathlib.Path(filename).read_text())
     return content
 # Define the Server's port
@@ -58,9 +59,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         if self.path == '/':
             contents = read_html_file('./html/index.html')
         elif '/info' in self.path:
-            base = self.path.split('/')[-1] #calculate the letter we're about to use
+            base = self.path.split('/')[-1]      #calculate the letter we're about to use
             context = BASES_INFORMATION[base]
-            context['letter'] = base #add a new entrance to the dictionary "content"
+            context['letter'] = base           #add a new entrance to the dictionary "content"
             contents = read_template_html_file('./html/info/general.html').render(base_information=context) #the names used for variables in render function == names used for variables in general.html; #render function transforms elements in Template into html code (as the server can only read the formats mentioned above)
         elif self.path == '/info/A':
             contents = read_html_file('./html/info/A.html')
