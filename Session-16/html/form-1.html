@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>FORM 1</title>
+  </head>
+  <body>
+    <form action="echo" method="get">
+      Message to send to the server: <br>
+      <input type="text" name="msg">
+      <input type="submit" value="SEND">
+    </form>
+  </body>
+</html>
+<!--choose on the right hand side the browser installed on your computer to launch the box to introduce the message-->
+<!--type is the actual thing to be displayed, by telling text, will know that the input will be always text;; submit is going to send to the server whatever is introduced in the input box-->
+<!--value stands for whatever appears on the submitting button (in this case, SEND);; name = msg (can vary and will still work) is not seen by the user but is used by the browser and server, keeps the value parameters in the url-->
+<!--action is the indication for the script to process (the info from the browser), in this case it is echo. it appears in the url after submitting-->
+<!--method tells the type of message that is going to disply to the server, changing it (p.e. to post, the information wont be delivered to the url but will be placed in the body of the request) will change the functioning of the page-->
