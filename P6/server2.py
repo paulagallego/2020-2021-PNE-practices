@@ -19,7 +19,7 @@ PORT = 8081
 
 list_sequences = ["ACGTAAAAGTTTAAGCGCCAAT", "AGTCCCCCCAAAATTTTGGGGGAATAT", "AGAGAGAGGATTATTATATACTCTTC", "GGGGGGGGGGGTTTTTTTTTAAAAAACCCC", "AAAAAATTTTTCGAAAAAAA"]
 
-list_genes = ["ADA", "FRAT1", "FNX", "RNU6_269P", "U5"]
+list_genes = ["ADA", "FRAT1", "FXN", "RNU6_269P", "U5"]
 BASES_INFORMATION = {
     'A': {'link': "https://en.wikipedia.org/wiki/Adenine",
           'formula': "C5H5NH",
