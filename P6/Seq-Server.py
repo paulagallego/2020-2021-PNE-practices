@@ -89,16 +89,16 @@ while True:
         elif command == 'GET':
             server_utils.get(cs, list_sequences, argument)
         elif command == '"INFO"':
-            Server_utils.info(argument, cs)
+            server_utils.info(argument, cs)
 
         elif command == '"COMP"':
-            Server_utils.comp(argument, cs)
+            server_utils.comp(argument, cs)
 
         elif command == '"REV"':
-            Server_utils.rev(argument, cs)
+            server_utils.rev(argument, cs)
 
         elif command == '"GENE"':
-            Server_utils.gene(argument, cs)
+            server_utils.gene(argument, cs)
 
         else:
             response = "Not available command"

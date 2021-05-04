@@ -65,7 +65,12 @@ class Seq:
         return a, c, g, t
     def count(self):
         a, c, g, t = self.count_bases()
-        return {'A': a, 'C': c, 'G': g, 'T': t}
+        sumation = a+c+g+t
+        apercentage = a*100/sumation
+        cpercentage = c * 100 / sumation
+        gpercentage = g * 100 / sumation
+        tpercentage = t * 100 / sumation
+        return {'A': [a, apercentage], 'C': [c, cpercentage], 'G': [g, gpercentage], 'T': [t, tpercentage]}
 
     def reverse(self):
         if self.strbases == Seq.NULL_SEQUENCE:

@@ -1,3 +1,4 @@
+import termcolor
 from Seq1 import Seq
 import pathlib
 import jinja2
@@ -19,10 +20,11 @@ def format_command(command):
     return command.replace("\n", "").replace("\r","")
 def ping():
     print_colored("PING command!", "green")
-    response = "OK!"
-    cs.send(str(response).encode())
+    print("OK!")
+
 
 def get(list_sequences, seq_number):
+    sequence = list_sequences[int(seq_number)] + '\n'
     context={
         "number": seq_number,
         "sequence": list_sequences[int(seq_number)]
@@ -30,45 +32,55 @@ def get(list_sequences, seq_number):
     contents = read_template_html_file("./html/get.html").render(context=context)
     return contents
 
-def info(cs, argument):
+def info(sequence):
     termcolor.cprint('INFO', 'green')
-    s = Seq(argument)
-    info_dict = s.info_seq()
-    response1 = 'Total length: ' + str(len(argument)) + '\n'
-    cs.send(response1.encode())
-    response2 = 'A: ' + str(info_dict['A'][0]) + ' ' + str(info_dict['A'][1]) + '%' + '\n'
-    cs.send(response2.encode())
-    response3 = 'C: ' + str(info_dict['C'][0]) + ' ' + str(info_dict['C'][1]) + '%' + '\n'
-    cs.send(response3.encode())
-    response4 = 'G: ' + str(info_dict['G'][0]) + ' ' + str(info_dict['G'][1]) + '%' + '\n'
-    cs.send(response4.encode())
-    response5 = 'T: ' + str(info_dict['T'][0]) + ' ' + str(info_dict['T'][1]) + '%' + '\n'
-    cs.send(response5.encode())
-    print(response1, response2, response3, response4, response5)
+    s = Seq(sequence)
+    info_dict = s.count()
+    response =f"""Total length {len(sequence)}
+A: {info_dict['A'][0]} ({info_dict['A'][1]})
+C: {info_dict['C'][0]} ({info_dict['C'][1]})
+G: {info_dict['A'][0]} ({info_dict['G'][1]})
+T: {info_dict['T'][0]} ({info_dict['T'][1]})"""
+    context = {
+        'sequence': sequence,
+        'information': response,
+        'operation': 'info'
+    }
+    contents = read_template_html_file('./html/form-4.html').render(context=context)
+    return contents
 
-def comp(cs, argument):
+def comp(sequence):
     termcolor.cprint('COMP', 'green')
-    s = Seq(argument)
+    s = Seq(sequence)
     complement = s.complement()
     response = complement + '\n'
-    cs.send(response.encode())
-    print(response)
-
-def rev(cs, argument):
+    context = {
+            'sequence': sequence,
+            'information': response,
+            'operation':'comp'
+    }
+    contents = read_template_html_file('./html/form-4.html').render(context=context)
+    return contents
+def rev(sequence):
     termcolor.cprint('REV', 'green')
-    s= Seq(argument)
+    s= Seq(sequence)
     rev = s.reverse()
     response = rev + '\n'
-    cs.send(response.encode())
-    print(response)
+    context = {
+        'sequence': sequence,
+        'information': response,
+        'operation': 'Rev'
+    }
+    contents = read_template_html_file('./html/form-4.html').render(context=context)
+    return contents
 
 def gene(seq_name):
     PATH ="./Sequences/" + seq_name + '.txt'
-    s1 = Seq()
-    s1.read_fasta(PATH)
+    s = Seq()
+    s.read_fasta(PATH)
     context= {
         "gene_name": seq_name,
-        "gene_contents": s1.str_bases
+        "gene_contents": s.strbases
     }
     contents = read_template_html_file("./html/gene.html").render(context=context)
     return contents
