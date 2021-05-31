@@ -1,3 +1,6 @@
+import http.client
+import json
+
 import termcolor
 from Seq1 import Seq
 import pathlib
@@ -84,4 +87,32 @@ def gene(seq_name):
     }
     contents = read_template_html_file("./html/gene.html").render(context=context)
     return contents
+def obtain_dict(endpoint):
+    server = "rest.ensembl.org"
+    parameters = '?content-type=application/json'
+    connection = http.client.HTTPConnection(server)
+    connection.request('GET', endpoint+parameters)
+    response=connection.getresponse()
+    response_dict = json.loads(response.read().decode())
+    return response_dict
+def obtain_info_list(dict_info):
+    input_seq=dict_info['seq']
+    sequence_seq=Seq(input_seq)
+    seq_length=[]
+    length =sequence_seq.len()
+    seq_length.append(length)
+    info_dict=sequence_seq.info_seq()
+    A_list = info_dict['A']
+    C_list = info_dict['C']
+    G_list = info_dict['G']
+    T_list = info_dict['T']
+    info_list=[]
+    info_list.append(A_list)
+    info_list.append(C_list)
+    info_list.append(G_list)
+    info_list.append(T_list)
+    info_list.append(seq_length)
+    return info_list
+
+
 
