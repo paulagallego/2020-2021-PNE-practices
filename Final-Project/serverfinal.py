@@ -46,10 +46,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
         arguments = parse_qs(o.query)
         print("Resource requested: ", path_name)
         print("Parameters: ", arguments)
-        # IN this simple server version:
-        # We are NOT processing the client's request
-        # It is a happy server: It always returns a message saying
-        # that everything is ok
+
         context = {}
         response_dict = su.obtain_dict(endpointA)
         complete_list_species = response_dict['species']
@@ -119,9 +116,9 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     'sequence': input_sequence,
                     'gene': input_gene
                 }
-                contents = su.read_template_html_file('./html medium/geneSeq.html').render(context)
+                contents = su.read_template_html_file('./html medium/geneSeq.html').render(context=context)
             except KeyError:
-                contents=su.read_template_html_file('./html basic/ERROR.html')
+                contents=su.read_template_html_file('./html basic/ERROR.html').render()
         elif path_name == '/geneInfo':
             try:
                 input_gene = arguments['gene'][0]
@@ -137,14 +134,15 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     'name_chromosome': chrom_name,
                     'number_chromosome': chrom_number,
                     'start_coordinates': start_coord,
-                    'end_coordinates': info_chrom_list,
+                    'end_coordinates': end_coord,
                     'id': gene_id,
-                    'length:gene': info_list[4],
+                    'gene_length': info_list[4],
                     'gene': input_gene
                 }
                 contents = su.read_template_html_file('./html medium/geneInfo.html').render(context=context)
+                print(start_coord, end_coord)
             except KeyError:
-                contents =su.read_template_html_file('./html medium/ERROR.html').render()
+                contents =su.read_template_html_file('./html basic/ERROR.html').render()
         elif path_name == '/geneCalc':
             try:
                 input_gene = arguments['gene'][0]
@@ -159,7 +157,7 @@ class TestHandler(http.server.BaseHTTPRequestHandler):
                     'G':info_list[2],
                     'T':info_list[3]
                 }
-                contents=su.read_template_html_file('/html medium/geneCalc.html').render(context=context)
+                contents=su.read_template_html_file('./html medium/geneCalc.html').render(context=context)
             except KeyError:
                 contents=su.read_template_html_file('./html basic/ERROR.html').render()
         else:
