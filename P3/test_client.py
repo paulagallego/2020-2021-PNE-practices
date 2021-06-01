@@ -1,15 +1,16 @@
+import self as self
 from Client0 import Client
-import socket
+
 import server_utils
 PRACTICE = 3
 EXERCISE = 7
 
 print(f"-----| Practice {PRACTICE}, Exercise {EXERCISE} |------")
-
+list_sequences = ["ACGTAAAAGTTTAAGCGCCAAT", "AGTCCCCCCAAAATTTTGGGGGAATAT", "AGAGAGAGGATTATTATATACTCTTC", "GGGGGGGGGGGTTTTTTTTTAAAAAACCCC", "AAAAAATTTTTCGAAAAAAA"]
+list_genes = ["U5", "ADA", "FRAT1", "FXN", "RNU6_269P"]
 IP = "127.0.0.1"
 PORT = 8080
-s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-s.connect((IP, PORT))
+
 
 c = Client(IP, PORT)
 print(c)
@@ -20,46 +21,27 @@ print(c.talk("OK!"))
 
 
 print("*Testing GET...")
-for argument in range(5):
-    list_sequences[int(argument)] + '\n'
+for elem in range(0, len(list_sequences)):
+    response=c.talk("GET "+str(elem))
+    print(f"{response}")
 
 print("*Testing INFO...")
-
-s = c.talk("INFO ACGTAAAAGTTTAAGCGCCAAT")
-s.connect((self.ip, self.port))
-print("To Server:", argument)
-s.send(argument.encode())
-response1 = s.recv(2048).decode("utf-8")
-response2 = s.recv(2048).decode("uft-8")
-response3 = s.recv(2048).decode("uft-8")
-response4 = s.recv(2048).decode("uft-8")
-response5 = s.recv(2048).decode("uft-8")
-s.close()
-print("From server: " + response1 + '\n' + response2 + '\n' + response3 + '\n'+ response4 + '\n' + response5 + '\n')
+for elem in range(0, len(list_sequences)):
+    response=c.talk("INFO "+str(elem))
+    print(f"{response}")
 
 print('*Testing COMP...')
-s = c.talk("COMP ACGTAAAAGTTTAAGCGCCAAT")
-s.connect((self.ip, self.port))
-print("To Server:", argument)
-s.send(argument.encode())
-response = s.recv(2048).decode("utf-8")
-s.close()
-print("From server: " + response)
+for elem in range(0, len(list_sequences)):
+    response=c.talk("COMP "+str(elem))
+    print(f"{response}")
 
 print('*Testing REV...')
-s = c.talk("REV ACGTAAAAGTTTAAGCGCCAAT")
-s.connect((self.ip, self.port))
-print("To Server:", argument)
-s.send(argument.encode())
-response = s.recv(2048).decode("utf-8")
-s.close()
-print("From server: " + response)
+for elem in range(0, len(list_sequences)):
+    response=c.talk("REV "+str(elem))
+    print(f"{response}")
+
 
 print('*Testing GENE...')
-s = c.talk("GENE ACGTAAAAGTTTAAGCGCCAAT")
-s.connect((self.ip, self.port))
-print("To Server:", argument)
-s.send(argument.encode())
-response = s.recv(2048).decode("utf-8")
-s.close()
-print("From server: " + response)
+for elem in list_genes:
+    response = c.talk("GENE " + str(elem))
+    print(f"{response}")

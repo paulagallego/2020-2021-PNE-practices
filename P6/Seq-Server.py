@@ -1,9 +1,8 @@
 import socket
-
 import termcolor
-
 import server_utils
 list_sequences = ["ACGTAAAAGTTTAAGCGCCAAT", "AGTCCCCCCAAAATTTTGGGGGAATAT", "AGAGAGAGGATTATTATATACTCTTC", "GGGGGGGGGGGTTTTTTTTTAAAAAACCCC", "AAAAAATTTTTCGAAAAAAA"]
+
 # -- Step 1: create the socket
 ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -11,7 +10,7 @@ ls = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 ls.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
 # Configure the Server's IP and PORT
-PORT = 8080
+PORT = 8081
 IP = "127.0.0.1"
 
 # -- Step 1: create the socket
@@ -40,7 +39,6 @@ while True:
         (cs, client_ip_port) = ls.accept() #count connections always after accept
         client_address_list.append(client_ip_port)
         count_connections += 1
-
         print("CONNECTION " + str(count_connections) + ".Client IP, PORT: " + str(client_ip_port))
 
 
@@ -53,68 +51,52 @@ while True:
 
         # -- Exit!
         exit()
+    msg_raw = cs.recv(2048)
+    # -- We decode it for converting it
+    # -- into a human-redeable string
+    msg = msg_raw.decode()
+
+    formatted_message = server_utils.format_command(msg)
+    formatted_message = formatted_message.split(" ")
 
     # -- Execute this part if there are no errors
+    # -- Read the message from the client
+    # -- The received message is in raw bytes
+
+    if len(formatted_message) == 1:
+        command = formatted_message[0]
     else:
-
-        print("A client has connected to the server!")
-
-        # -- Read the message from the client
-        # -- The received message is in raw bytes
-        msg_raw = cs.recv(2048)
-        # -- We decode it for converting it
-        # -- into a human-redeable string
-        msg = msg_raw.decode()
-
-        formatted_message = server_utils.format_command(msg)
-        formatted_message = formatted_message.split(" ")
-        if len(formatted_message) == 1:
-            command = formatted_message[0]
-        else:
-            command = formatted_message[0]
-            argument = formatted_message[1]
+        command =formatted_message[0]
+        argument = formatted_message[1]
 
 
-        #if formatted_message == 'PING':
-            #server_utils.ping()
-        if command == "PING":
-            server_utils.ping(cs)
+    #if formatted_message == 'PING':
+        #server_utils.ping()
+    if command == "PING":
+        server_utils.ping(cs)
+    # -- Send a response message to the client
+    #try is used to avoid the server to stop when something not transformable into an integer is introduced
+        #response = "OK!"
+    # -- The message has to be encoded into bytes
+        #cs.send(str(response).encode()) # the int is back to a str and encoded into bytes by .encode and sent back to client
+    elif command == "GET":
+        server_utils.get(cs, list_sequences, argument)
+    elif command == "INFO":
+        server_utils.info(cs, argument)
 
+    elif command == "COMP":
+        server_utils.comp(cs, argument)
 
-        # -- Send a response message to the client
-        #try is used to avoid the server to stop when something not transformable into an integer is introduced
-            #response = "OK!"
-        # -- The message has to be encoded into bytes
-            #cs.send(str(response).encode()) # the int is back to a str and encoded into bytes by .encode and sent back to client
-        elif command == '"GET"':
-            if argument == '0':
-                server_utils.get(cs, list_sequences, 0)
-            elif argument == '1':
-                server_utils.get(cs, list_sequences, 1)
-            elif argument == '2':
-                server_utils.get(cs, list_sequences, 2)
-            elif argument == '3':
-                server_utils.get(cs, list_sequences, 3)
-            elif argument == '4':
-                server_utils.get(cs, list_sequences, 4)
-        elif command == '"INFO"':
-            server_utils.info(argument, cs)
+    elif command == "REV":
+        server_utils.rev(cs, argument)
 
-        elif command == '"COMP"':
-            server_utils.comp(argument, cs)
+    elif command == "GENE":
+        server_utils.gene(cs, argument)
 
-        elif command == '"REV"':
-            server_utils.rev(argument, cs)
+    else:
+        response = "Not available command"
+        termcolor.cprint(response, "red")
+        cs.send(str(response).encode())
 
-        elif command == '"GENE"':
-            server_utils.gene(argument, cs)
-
-        else:
-            response = "Not available command"
-            termcolor.cprint(response, "red")
-            cs.send(response.encode())
-        #else:
-            #response = "Not available command"
-            #cs.send(str(response).encode())
-        # -- Close the data socket
-        cs.close()
+    # -- Close the data socket
+    cs.close()

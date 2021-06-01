@@ -8,7 +8,7 @@ class Seq:
     def __init__(self, strbases=NULL_SEQUENCE):
         #Initialize the sequence with the value passed as argument when creating the object
         #If Attribute Error: 'Seq' obj has no attribute 'strbases', add self.strbases = strbases at the beginning of the def __init__
-       self.strbases = strbases
+        self.strbases = strbases
         if strbases == Seq.NULL_SEQUENCE:
             print('Null seq created')
             self.strbases = strbases
@@ -28,7 +28,7 @@ class Seq:
 
     @staticmethod
     def is_valid_sequence_2(bases):
-        for i in strbases:
+        for i in bases:
             if i != 'A' and i != 'C' and i != 'G' and i != 'T':
                 return False
         return True
@@ -63,9 +63,18 @@ class Seq:
                 else:
                     t += 1
         return a, c, g, t
+
     def count(self):
-        a, c, g, t = self.count_bases()
-        return {'A': a, 'C': c, 'G': g, 'T': t}
+        a, c, t, g = self.count_bases()
+        return {'A': a, 'C': c, 'T': t, 'G': g}
+    def percentage(self):
+        a, c, t, g = self.count_bases()
+        per_a = "(" + str(round(a / self.len() * 100, 1)) + "%)"
+        per_c = "(" + str(round(c / self.len() * 100, 1)) + "%)"
+        per_t = "(" + str(round(t / self.len() * 100, 1)) + "%)"
+        per_g = "(" + str(round(g / self.len() * 100, 1)) + "%)"
+        return "A: " + str(a) + "  " + per_a + "\n" + "C: " + str(c) + "  " + per_c + "\n" + "T: " + str(
+            t) + "  " + per_t + "\n" + "G: " + str(g) + "  " + per_g
 
     def reverse(self):
         if self.strbases == Seq.NULL_SEQUENCE:
